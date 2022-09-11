@@ -1,7 +1,0 @@
-Key1 = Keystrokes()
-Key2 = Keystrokes()
-Key3 = Keystrokes()
-
-Key1.key = Key.ctrl_l
-Key2.key = Key.shift
-Key3.key = "a"
