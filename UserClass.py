@@ -44,9 +44,9 @@ def RemoveUser():
     with open('Pairs.json', 'r') as Pears:
         dict = json.load(Pears)
         print(dict.keys())
-        name = input("Uh oh! This user has been acting SUS??!?!?!?!?! Which of these users is getting sent to Ohio? ")
+        name = input("Please enter the name of the user you would like to remove from the database? ")
         del dict[name]
-        print("The waffle house has found its new host:", name)
+        #print("The waffle house has found its new host:", name)
     with open('Pairs.json', 'w') as Pairs:
         json.dump(dict, Pairs, indent = 4)
         
