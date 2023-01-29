@@ -72,6 +72,25 @@ def WriteMessage():
         EncryptedMessage = EncryptedMessage.strip("'")
         print(EncryptedMessage)
 
+def MassWrite():
+    with open("Pairs.json", 'r') as Pairs:
+        Pairs = json.load(Pairs)
+        i = 0
+        Message = input("Please enter the message you would like to send to every recipient in your database: ")
+        for Pair in Pairs:
+            User_Key = Pairs[Pair]
+            User_Key = User_Key.strip("b")
+            User_Key = User_Key.strip("'")
+            Finalkey = bytes(User_Key, 'utf-8')
+            Encryptionkey = Fernet(Finalkey)
+            EncryptedMessage = Encryptionkey.encrypt(bytes(Message, 'utf-8'))
+            EncryptedMessage = str(EncryptedMessage)
+            EncryptedMessage = EncryptedMessage.strip('b')
+            EncryptedMessage = EncryptedMessage.strip("'")
+            Users = list(Pairs.keys())
+            print("Message for", Users[i], ": ", EncryptedMessage)
+            i += 1
+
 def DecryptMessage():
     with open("Pairs.json", "r") as storage:
         storage = json.load(storage)
@@ -91,7 +110,7 @@ def DecryptMessage():
         
 
 while True:
-    InitialAction = input("What would you like to do? \n 1. Add User \n 2. Remove User \n 3. List Users \n 4. Encrypt Message \n 5. Decrypt Message \n")
+    InitialAction = input("What would you like to do? \n 1. Add User \n 2. Remove User \n 3. List Users \n 4. Encrypt Message (One Recipient) \n 5. Encrypt Message (All Recipients) \n 6. Decrypt Message \n")
     if InitialAction == "1":
         AddUser()
     elif InitialAction == "2":
@@ -101,6 +120,8 @@ while True:
     elif InitialAction == "4":
         WriteMessage()
     elif InitialAction == "5":
+        MassWrite()
+    elif InitialAction == "6":
         DecryptMessage()
     Continue = input("Would you like to do anything else? (Y/N) ")
     if Continue == "Y":
