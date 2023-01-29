@@ -1,0 +1,4 @@
+Idea for using json.dump and json.load came from this stackoverflow thread:
+https://stackoverflow.com/questions/11821322/elegant-way-to-store-dictionary-permanently-with-python
+
+ 
