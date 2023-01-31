@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import *
-from UserClass import AddUser, RemoveUser, ListUsers, WriteMessage, MassWrite, DecryptMessage
+from UserClass import AddUser, RemoveUser, WriteMessage, MassWrite, DecryptMessage
 #Initialize first screen in which user confirms their intentions
 SelectionScreen = tk.Tk()
 SelectionScreen.geometry("1500x1000")
@@ -86,6 +86,41 @@ def WriteScreen():
     EncryptionButton = tk.Button(WriteScreen, height=5, width=15, bg="gray", text="Enter", fg="white", command=GetInfo)
     EncryptionButton.place(x=750, y=600)
 
+def OriginalMessage():
+    #Create Window
+    global SelectionScreen
+    SelectionScreen.destroy()
+    DecryptScreen = tk.Tk()
+    DecryptScreen.geometry("1500x1000")
+    DecryptScreen.configure(background="gray")
+    #Entry fields
+    MessageField = tk.Entry(DecryptScreen, bg="white", fg='black', width=20)
+    MessageField.place(x=950, y=300)
+    MessageLabel = tk.Label(DecryptScreen, text="Enter the message you received here: ", bg='gray', fg='white')
+    MessageLabel.place(x=650, y=300)
+    SenderField = tk.Entry(DecryptScreen, bg='white', fg='black', width=20)
+    SenderField.place(x=950, y=400)
+    SenderLabel = tk.Label(DecryptScreen, text="From whom did you receive this message?", bg='gray', fg='white')
+    SenderLabel.place(x=650, y=400)
+    def GetInfo():
+        Sender = SenderField.get()
+        Message = MessageField.get()
+        DecryptMessage(Message, Sender)
+        MessageField.delete(0, END)
+        MessageField.delete(0, END)
+        with open('Encryption.txt', 'r') as Decryption:
+            DecryptedField = Text(DecryptScreen, height=5, width=25)
+            text = Decryption.read()
+            DecryptedField.insert(tk.END, text)
+            DecryptedField.place(x=950, y=500)
+        DecryptionLabel = tk.Label(DecryptScreen, text = "Decrypted message here: ", bg='gray', fg='white')
+        DecryptionLabel.place(x=650, y=500)
+
+    #Enter Button
+    DecryptionButton = tk.Button(DecryptScreen, height=5, width=15, bg="gray", text="Enter", fg="white", command=GetInfo)
+    DecryptionButton.place(x=650, y=500)
+            
+
 #Fill initial screen with buttons tied to functions
 AddButton = tk.Button(SelectionScreen, height=5, width=15, bg="gray", text="Add User", fg="white", command=AddScreen)
 AddButton.place(x=0, y=400)
@@ -96,8 +131,10 @@ RemoveButton.place(x=200, y=400)
 ListButton = tk.Button(SelectionScreen, height=5, width=15, bg="gray", text="List Users", fg="white", command=ListScreen)
 ListButton.place(x=400, y=400)
 
-WriteButton = tk.Button(SelectionScreen, height=5, width=15, bg="gray", text="Write Message", fg="white", command=WriteScreen)
-WriteButton.place(x=600, y=400)
+EncryptButton = tk.Button(SelectionScreen, height=5, width=15, bg="gray", text="Encryption Message", fg="white", command=WriteScreen)
+EncryptButton.place(x=600, y=400)
 
+DecryptButton = tk.Button(SelectionScreen, height=5, width=15, bg="gray", text = "Decrypt Message", fg="white", command=OriginalMessage)
+DecryptButton.place(x=800, y=400)
 
 SelectionScreen.mainloop()

@@ -95,12 +95,10 @@ def MassWrite():
             print("Message for", Users[i], ": ", EncryptedMessage)
             i += 1
 
-def DecryptMessage():
+def DecryptMessage(EncryptedMessage, Sender):
     with open("Pairs.json", "r") as storage:
         storage = json.load(storage)
-        EncryptedMessage = input("Please enter the encrypted message you receieved here: ")
         print(str(storage.keys()))
-        Sender = input("From whom did you receive this message? ")
         SenderKey = str(storage[Sender])
         SenderKey = SenderKey.strip("b")
         SenderKey = SenderKey.strip("'")
@@ -110,7 +108,8 @@ def DecryptMessage():
         DecryptedMessage = str(DecryptedMessage)
         DecryptedMessage = DecryptedMessage.strip("b")
         DecryptedMessage = DecryptedMessage.strip("'")
-        print(DecryptedMessage)
+        with open('Encryption.txt', 'w') as Decryption:
+            Decryption.write(DecryptedMessage)
         
 
 '''while True:
