@@ -125,6 +125,7 @@ def WriteScreen():
 def OriginalMessage():
     #Create Window
     global SelectionScreen
+    SelectionScreen.destroy()
     DecryptScreen = tk.Tk()
     DecryptScreen.geometry("1500x1000")
     DecryptScreen.configure(background="gray")
