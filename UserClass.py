@@ -75,6 +75,7 @@ def WriteMessage(Recipient, Message):
         print(EncryptedMessage)
         with open("Encryption.txt", "w") as Encryption:
             Encryption.write(EncryptedMessage)
+            Encryption.close()
 
 def MassWrite():
     with open("Pairs.json", 'r') as Pairs:
@@ -110,6 +111,7 @@ def DecryptMessage(EncryptedMessage, Sender):
         DecryptedMessage = DecryptedMessage.strip("'")
         with open('Encryption.txt', 'w') as Decryption:
             Decryption.write(DecryptedMessage)
+            Decryption.close()
         
 
 '''while True:
