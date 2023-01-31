@@ -13,7 +13,7 @@ class Recipients:
         self.key = key'''
 
 #Function to add a recipient to the database 
-def AddUser():
+def AddUser(name):
     Repeat = True
     while Repeat == True:
         with open('Pairs.json', 'r') as Pairs:
@@ -25,7 +25,6 @@ def AddUser():
         #Takes input from user for new recipient's name, generates cryptographic key to be paired to user given recipient
         with open('Pairs.json', 'r') as Pairs:
             dict = json.load(Pairs)
-            name = input("Enter the name by which this user will be called: ")
             key = str(Fernet.generate_key())
             dict[name] = key
         #Deletes Dummy value from dictionary if it is found, then writes recipient key pairs to dictionary. If Dummy value is not in dictionary, simply writes given values to dictionary
@@ -35,23 +34,14 @@ def AddUser():
                 json.dump(dict, storage, indent = 4)
             except:
                 json.dump(dict, storage, indent= 4)
+                Repeat = False
         #Asks if user would like to add another user to the database. If yes: passes to the top of the loop. If no: breaks out of loop
-        Terminate = input("Would you like to add another user to the database? (Y/N): ")
-        if Terminate == 'N':
-            with open('Pairs.json', 'w') as storage:
-                json.dump(dict, storage, indent=4)
-                storage.close()
-                break
-        elif Terminate == "Y":
-            pass
 
 #Function to remove user from the database
-def RemoveUser():
+def RemoveUser(name):
     #Takes input from user to determine which user will be removed from the database
     with open('Pairs.json', 'r') as Pears:
         dict = json.load(Pears)
-        print(dict.keys())
-        name = input("Please enter the name of the user you would like to remove from the database? ")
         del dict[name]
         #print("The waffle house has found its new host:", name)
     #Writes new dictionary with deleted values to json file
@@ -123,7 +113,7 @@ def DecryptMessage():
         print(DecryptedMessage)
         
 
-while True:
+'''while True:
     InitialAction = input("What would you like to do? \n 1. Add User \n 2. Remove User \n 3. List Users \n 4. Encrypt Message (One Recipient) \n 5. Encrypt Message (All Recipients) \n 6. Decrypt Message \n")
     def Continuation(InitialAction):
         if InitialAction == "1":
@@ -143,4 +133,4 @@ while True:
             pass
         if Continue == "N":
             exit()
-    Continuation(InitialAction)
+    Continuation(InitialAction)'''
