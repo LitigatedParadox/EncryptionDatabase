@@ -113,26 +113,3 @@ def DecryptMessage(EncryptedMessage, Sender):
         DecryptedMessage = DecryptedMessage.strip("'")
         with open('Encryption.txt', 'w') as Decryption:
             Decryption.write(DecryptedMessage)
-        
-
-'''while True:
-    InitialAction = input("What would you like to do? \n 1. Add User \n 2. Remove User \n 3. List Users \n 4. Encrypt Message (One Recipient) \n 5. Encrypt Message (All Recipients) \n 6. Decrypt Message \n")
-    def Continuation(InitialAction):
-        if InitialAction == "1":
-            AddUser()
-        elif InitialAction == "2":
-            RemoveUser()
-        elif InitialAction == "3":
-            ListUsers()
-        elif InitialAction == "4":
-            WriteMessage()
-        elif InitialAction == "5":
-            MassWrite()
-        elif InitialAction == "6":
-            DecryptMessage()
-        Continue = input("Would you like to do anything else? (Y/N) ")
-        if Continue == "Y":
-            pass
-        if Continue == "N":
-            exit()
-    Continuation(InitialAction)'''
