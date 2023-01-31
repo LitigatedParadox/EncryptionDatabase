@@ -91,8 +91,12 @@ def MassWrite(Message):
             EncryptedMessage = EncryptedMessage.strip('b')
             EncryptedMessage = EncryptedMessage.strip("'")
             Users = list(Pairs.keys())
-            print("Message for", Users[i], ": ", EncryptedMessage)
-            i += 1
+            with open("Encryption.txt", "a") as Encryption:
+                if i == 0:
+                    Encryption.write("Message for " + str(Users[i]) + ": " + EncryptedMessage)
+                else:
+                    Encryption.write("\nMessage for " + str(Users[i]) + ": " + EncryptedMessage)
+                i += 1
 
 def DecryptMessage(EncryptedMessage, Sender):
     with open("Pairs.json", "r") as storage:

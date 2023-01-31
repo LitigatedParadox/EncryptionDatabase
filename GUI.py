@@ -114,6 +114,8 @@ def OriginalMessage():
             text = Decryption.read()
             DecryptedField.insert(tk.END, text)
             DecryptedField.place(x=950, y=500)
+            with open("Encryption.txt", "r+") as DecryptionTextFile:
+                DecryptionTextFile.truncate(0)
         DecryptionLabel = tk.Label(DecryptScreen, text = "Decrypted message here: ", bg='gray', fg='white')
         DecryptionLabel.place(x=650, y=500)
 
@@ -121,7 +123,7 @@ def OriginalMessage():
     DecryptionButton = tk.Button(DecryptScreen, height=5, width=15, bg="gray", text="Enter", fg="white", command=GetInfo)
     DecryptionButton.place(x=650, y=500)
             
-def MassWrite():
+def MassEncrypt():
     global SelectionScreen
     SelectionScreen.destroy()
     AllScreen = tk.Tk()
@@ -131,22 +133,40 @@ def MassWrite():
     EncryptionField = tk.Entry(AllScreen, bg="white", fg="black", width=20)
     EncryptionField.place(x=950, y=300)
     EncryptionLabel = tk.Label(AllScreen, text="Enter the message you would like to encrypt here: ", bg="gray", fg="white")
-    EncryptionLabel.place(x=850, y=300)
-
+    EncryptionLabel.place(x=650, y=300)
+    def MassEncrypt():
+        Message = EncryptionField.get()
+        MassWrite(Message)
+        EncryptionField.delete(0, END)
+        with open("Encryption.txt", "r") as Encryption:
+            EncryptedList = Text(AllScreen, height=25, width=50)
+            text = Encryption.read()
+            EncryptedList.insert(tk.END, text)
+            EncryptedList.place(x=950, y=500)
+            with open('Encryption.txt', "r+") as TextFile:
+                TextFile.truncate(0)
+        ListLabel = tk.Label(AllScreen, text = "Encrypted messages here: ", bg='gray', fg='white')
+        ListLabel.place(x=650, y=500)
+    
+    #Enter Button
+    MassEncryptButton = tk.Button(AllScreen, height=5, width = 25, bg="gray", text = "Enter", fg="white", command=MassEncrypt)
+    MassEncryptButton.place(x=650, y=500)
 #Fill initial screen with buttons tied to functions
-AddButton = tk.Button(SelectionScreen, height=5, width=15, bg="gray", text="Add User", fg="white", command=AddScreen)
+AddButton = tk.Button(SelectionScreen, height=5, width=25, bg="gray", text="Add User", fg="white", command=AddScreen)
 AddButton.place(x=0, y=400)
 
-RemoveButton = tk.Button(SelectionScreen, height=5, width=15, bg="gray", text="Remove Users", fg="white", command=RemoveUsers)
+RemoveButton = tk.Button(SelectionScreen, height=5, width=25, bg="gray", text="Remove Users", fg="white", command=RemoveUsers)
 RemoveButton.place(x=200, y=400)
 
-ListButton = tk.Button(SelectionScreen, height=5, width=15, bg="gray", text="List Users", fg="white", command=ListScreen)
+ListButton = tk.Button(SelectionScreen, height=5, width=25, bg="gray", text="List Users", fg="white", command=ListScreen)
 ListButton.place(x=400, y=400)
 
-EncryptButton = tk.Button(SelectionScreen, height=5, width=15, bg="gray", text="Encryption Message", fg="white", command=WriteScreen)
+EncryptButton = tk.Button(SelectionScreen, height=5, width=25, bg="gray", text="Encrypt Message (One User)", fg="white", command=WriteScreen)
 EncryptButton.place(x=600, y=400)
 
-DecryptButton = tk.Button(SelectionScreen, height=5, width=15, bg="gray", text = "Decrypt Message", fg="white", command=OriginalMessage)
+DecryptButton = tk.Button(SelectionScreen, height=5, width=25, bg="gray", text = "Decrypt Message", fg="white", command=OriginalMessage)
 DecryptButton.place(x=800, y=400)
 
+MassEncryptButton = tk.Button(SelectionScreen, height=5, width=25, bg="gray", text = "Encrypt Message (All Users)", fg="white", command=MassEncrypt)
+MassEncryptButton.place(x=1000, y=400)
 SelectionScreen.mainloop()
