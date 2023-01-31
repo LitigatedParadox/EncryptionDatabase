@@ -75,13 +75,11 @@ def WriteMessage(Recipient, Message):
         print(EncryptedMessage)
         with open("Encryption.txt", "w") as Encryption:
             Encryption.write(EncryptedMessage)
-            Encryption.close()
 
-def MassWrite():
+def MassWrite(Message):
     with open("Pairs.json", 'r') as Pairs:
         Pairs = json.load(Pairs)
         i = 0
-        Message = input("Please enter the message you would like to send to every recipient in your database: ")
         for Pair in Pairs:
             User_Key = Pairs[Pair]
             User_Key = User_Key.strip("b")
@@ -111,7 +109,6 @@ def DecryptMessage(EncryptedMessage, Sender):
         DecryptedMessage = DecryptedMessage.strip("'")
         with open('Encryption.txt', 'w') as Decryption:
             Decryption.write(DecryptedMessage)
-            Decryption.close()
         
 
 '''while True:

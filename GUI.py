@@ -80,9 +80,10 @@ def WriteScreen():
             text = Encryption.read()
             EncryptedField.insert(tk.END, text)
             EncryptedField.place(x=950, y=500)
+            with open("Encryption.txt", "r+") as Encryption:
+                Encryption.truncate(0)
         EncryptionLabel = tk.Label(WriteScreen, text = "Your encrypted message here: ", bg = 'gray', fg="white")
         EncryptionLabel.place(x=650, y=500)
-        
     EncryptionButton = tk.Button(WriteScreen, height=5, width=15, bg="gray", text="Enter", fg="white", command=GetInfo)
     EncryptionButton.place(x=750, y=600)
 
@@ -120,6 +121,17 @@ def OriginalMessage():
     DecryptionButton = tk.Button(DecryptScreen, height=5, width=15, bg="gray", text="Enter", fg="white", command=GetInfo)
     DecryptionButton.place(x=650, y=500)
             
+def MassWrite():
+    global SelectionScreen
+    SelectionScreen.destroy()
+    AllScreen = tk.Tk()
+    AllScreen.geometry("1500x1000")
+    AllScreen.configure(background="gray")
+    #Entry fields
+    EncryptionField = tk.Entry(AllScreen, bg="white", fg="black", width=20)
+    EncryptionField.place(x=950, y=300)
+    EncryptionLabel = tk.Label(AllScreen, text="Enter the message you would like to encrypt here: ", bg="gray", fg="white")
+    EncryptionLabel.place(x=850, y=300)
 
 #Fill initial screen with buttons tied to functions
 AddButton = tk.Button(SelectionScreen, height=5, width=15, bg="gray", text="Add User", fg="white", command=AddScreen)
