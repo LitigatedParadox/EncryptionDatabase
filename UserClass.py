@@ -54,12 +54,11 @@ def ListUsers():
         storage = json.load(storage)
         print(str(storage.keys()))
 
-def WriteMessage():
+def WriteMessage(Recipient, Message):
     with open("Pairs.json", 'r') as Pairs:
         Pairs = json.load(Pairs)
         print(str(Pairs.keys()))
         #Takes input from user pertaining to recipient
-        Recipient = input("To whom would you like to send your message? ")
         key = str(Pairs[Recipient])
         #Strips b string of b and '
         key = key.strip("b")
@@ -68,13 +67,14 @@ def WriteMessage():
         Finalkey = bytes(key, 'utf-8')
         EncryptionKey = Fernet(Finalkey)
         #Receives message from user to be encrypted 
-        Message = input("Please enter the message you would like to encrypt here: ")
         EncryptedMessage = EncryptionKey.encrypt(bytes(Message, 'utf-8'))
         #Converts EncryptedMessage to string to and strips message of b and ' before printing
         EncryptedMessage = str(EncryptedMessage)
         EncryptedMessage = EncryptedMessage.strip('b')
         EncryptedMessage = EncryptedMessage.strip("'")
         print(EncryptedMessage)
+        with open("Encryption.txt", "w") as Encryption:
+            Encryption.write(EncryptedMessage)
 
 def MassWrite():
     with open("Pairs.json", 'r') as Pairs:
