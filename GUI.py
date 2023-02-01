@@ -3,7 +3,7 @@ from tkinter import *
 from UserClass import AddUser, RemoveUser, WriteMessage, MassWrite, DecryptMessage
 #Initialize first screen in which user confirms their intentions
 SelectionScreen = tk.Tk()
-SelectionScreen.geometry("1500x1000")
+SelectionScreen.attributes("-fullscreen", True)
 SelectionScreen.configure(background="gray")
 
 #Functions
@@ -11,26 +11,36 @@ def BackButton(root):
     global SelectionScreen
     root.destroy()
     SelectionScreen = tk.Tk()
-    SelectionScreen.geometry("1500x1000")
+    SelectionScreen.attributes("-fullscreen", True)
     SelectionScreen.configure(background="gray")
     AddButton = tk.Button(SelectionScreen, height=5, width=25, bg="gray", text="Add User", fg="white", command=AddScreen)
-    AddButton.place(x=0, y=400)
+    AddButton.place(x=150, y=400)
 
     RemoveButton = tk.Button(SelectionScreen, height=5, width=25, bg="gray", text="Remove Users", fg="white", command=RemoveUsers)
-    RemoveButton.place(x=200, y=400)
+    RemoveButton.place(x=350, y=400)
 
     ListButton = tk.Button(SelectionScreen, height=5, width=25, bg="gray", text="List Users", fg="white", command=ListScreen)
-    ListButton.place(x=400, y=400)
+    ListButton.place(x=550, y=400)
 
     EncryptButton = tk.Button(SelectionScreen, height=5, width=25, bg="gray", text="Encrypt Message (One User)", fg="white", command=WriteScreen)
-    EncryptButton.place(x=600, y=400)
+    EncryptButton.place(x=750, y=400)
 
     DecryptButton = tk.Button(SelectionScreen, height=5, width=25, bg="gray", text = "Decrypt Message", fg="white", command=OriginalMessage)
-    DecryptButton.place(x=800, y=400)
+    DecryptButton.place(x=950, y=400)
 
     MassEncryptButton = tk.Button(SelectionScreen, height=5, width=25, bg="gray", text = "Encrypt Message (All Users)", fg="white", command=MassEncrypt)
-    MassEncryptButton.place(x=1000, y=400)
+    MassEncryptButton.place(x=1150, y=400)
+    ExitButton(SelectionScreen)
+
     SelectionScreen.mainloop()
+
+def Close(root):
+    root.destroy()
+
+def ExitButton(root):
+    Exit = tk.Button(root, height=5, width=15, bg="gray", text="Exit", fg="white", command=lambda: Close(root))
+    Exit.place(x=1300, y=800)
+    
 
 def AddBack(root):
     BackRoot = root
@@ -42,7 +52,7 @@ def AddScreen():
     global SelectionScreen
     SelectionScreen.destroy()
     AddScreen = tk.Tk()
-    AddScreen.geometry("1500x1000")
+    AddScreen.attributes("-fullscreen", True)
     AddScreen.configure(background="gray")
     AddBack(AddScreen)
     #Buttons
@@ -56,12 +66,13 @@ def AddScreen():
         CompletionMessage.place(x=750, y=350)
     AddData = tk.Button(AddScreen, height=5, width=15, bg="gray", text="Enter", fg="white", command=GetName)
     AddData.place(x=750, y=400)
+    ExitButton(AddScreen)
 
 def RemoveUsers():
     global SelectionScreen
     SelectionScreen.destroy()
     RemoveScreen = tk.Tk()
-    RemoveScreen.geometry("1500x1500")
+    RemoveScreen.attributes("-fullscreen", True)
     RemoveScreen.configure(background="gray")
     AddBack(RemoveScreen)
     #Buttons
@@ -75,24 +86,25 @@ def RemoveUsers():
         RemovalMessage.place(x=750, y=350)
     RemoveData = tk.Button(RemoveScreen, height=5, width=15, bg='gray', text="Enter", fg="white", command=GetRemoval)
     RemoveData.place(x=750, y=400)
-        
+    ExitButton(RemoveScreen)
 
 def ListScreen():
     global SelectionScreen
     SelectionScreen.destroy()
     ListScreen = tk.Tk()
-    ListScreen.geometry("1500x1000")
+    ListScreen.attributes("-fullscreen", True)
     ListScreen.configure(background="gray")
     AddBack(ListScreen)
     with open("Pairs.json", 'r') as Users:
         UserLabel = tk.Label(text=Users.read(), bg='gray', fg='white')
-        UserLabel.place(x=100, y=100)
+        UserLabel.place(x=650, y=400)
+    ExitButton(ListScreen)
 
 def WriteScreen():
     global SelectionScreen
     SelectionScreen.destroy()
     WriteScreen = tk.Tk()
-    WriteScreen.geometry("1500x1000")
+    WriteScreen.attributes("-fullscreen", True)
     WriteScreen.configure(background="gray")
     AddBack(WriteScreen)
     #Buttons
@@ -121,13 +133,14 @@ def WriteScreen():
         EncryptionLabel.place(x=650, y=500)
     EncryptionButton = tk.Button(WriteScreen, height=5, width=15, bg="gray", text="Enter", fg="white", command=GetInfo)
     EncryptionButton.place(x=750, y=600)
+    ExitButton(WriteScreen)
 
 def OriginalMessage():
     #Create Window
     global SelectionScreen
     SelectionScreen.destroy()
     DecryptScreen = tk.Tk()
-    DecryptScreen.geometry("1500x1000")
+    DecryptScreen.attributes("-fullscreen", True)
     DecryptScreen.configure(background="gray")
     AddBack(DecryptScreen)
     #Entry fields
@@ -158,12 +171,14 @@ def OriginalMessage():
     #Enter Button
     DecryptionButton = tk.Button(DecryptScreen, height=5, width=15, bg="gray", text="Enter", fg="white", command=GetInfo)
     DecryptionButton.place(x=650, y=500)
-            
+    ExitButton(DecryptScreen)
+
+
 def MassEncrypt():
     global SelectionScreen
     SelectionScreen.destroy()
     AllScreen = tk.Tk()
-    AllScreen.geometry("1500x1000")
+    AllScreen.attributes("-fullscreen", True)
     AllScreen.configure(background="gray")
     AddBack(AllScreen)
     #Entry fields
@@ -188,22 +203,26 @@ def MassEncrypt():
     #Enter Button
     MassEncryptButton = tk.Button(AllScreen, height=5, width = 25, bg="gray", text = "Enter", fg="white", command=MassEncrypt)
     MassEncryptButton.place(x=650, y=500)
+    ExitButton(AllScreen)
+
 #Fill initial screen with buttons tied to functions
 AddButton = tk.Button(SelectionScreen, height=5, width=25, bg="gray", text="Add User", fg="white", command=AddScreen)
-AddButton.place(x=0, y=400)
+AddButton.place(x=350, y=400)
 
 RemoveButton = tk.Button(SelectionScreen, height=5, width=25, bg="gray", text="Remove Users", fg="white", command=RemoveUsers)
-RemoveButton.place(x=200, y=400)
+RemoveButton.place(x=550, y=400)
 
 ListButton = tk.Button(SelectionScreen, height=5, width=25, bg="gray", text="List Users", fg="white", command=ListScreen)
-ListButton.place(x=400, y=400)
+ListButton.place(x=750, y=400)
 
 EncryptButton = tk.Button(SelectionScreen, height=5, width=25, bg="gray", text="Encrypt Message (One User)", fg="white", command=WriteScreen)
-EncryptButton.place(x=600, y=400)
+EncryptButton.place(x=950, y=400)
 
 DecryptButton = tk.Button(SelectionScreen, height=5, width=25, bg="gray", text = "Decrypt Message", fg="white", command=OriginalMessage)
-DecryptButton.place(x=800, y=400)
+DecryptButton.place(x=1150, y=400)
 
 MassEncryptButton = tk.Button(SelectionScreen, height=5, width=25, bg="gray", text = "Encrypt Message (All Users)", fg="white", command=MassEncrypt)
-MassEncryptButton.place(x=1000, y=400)
+MassEncryptButton.place(x=1350, y=400)
+ExitButton(SelectionScreen)
+
 SelectionScreen.mainloop()
